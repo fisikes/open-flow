@@ -1,0 +1,22 @@
+@startuml
+
+skinparam backgroundColor #d3d3d3
+
+!include ./base/full.puml
+
+'  command
+Command("CreateBranch")
+Command("MergeToDaily")
+Command("RevertFromDaily")
+
+
+'  event
+Event("BranchCreated")
+Event("MergedToDaily")
+Event("MergeConflict")
+Event("BuildFailed")
+Event("BuildSuccess")
+Event("DeployFailed")
+Event("DeploySuccess")
+
+@enduml
