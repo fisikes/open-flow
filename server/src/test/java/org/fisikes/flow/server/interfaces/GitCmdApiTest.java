@@ -14,7 +14,11 @@ public class GitCmdApiTest {
 
     @Test
     public void test() {
-
         gitCmdApi.createBranch(null ,"test");
+    }
+
+    @Test
+    public void deleteBranch() {
+        gitCmdApi.deleteBranch(null ,"test");
     }
 }

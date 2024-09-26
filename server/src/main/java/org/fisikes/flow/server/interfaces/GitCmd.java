@@ -13,8 +13,39 @@ import java.io.InputStreamReader;
 public class GitCmd implements GitCmdApi {
 
 
+    /**
+     * 删除本地分支：
+     * git branch -d branch_name
+     * <p>
+     * 使用 -D 强制删除未合并的分支：
+     * git branch -D branch_name
+     * <p>
+     * 删除远程分支：
+     * git push origin --delete branch_name
+     */
     @Override
     public void deleteBranch(GitRepoInfo gitRepoInfo, String branchName) {
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder("git", "branch", "-d", branchName);
+            processBuilder.redirectErrorStream(true);
+            Process process = processBuilder.start();
+
+            // 读取命令输出
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            int exitCode = process.waitFor();
+            if (exitCode == 0) {
+                System.out.println("Branch '" + branchName + "' delete successfully.");
+            } else {
+                System.out.println("Failed to delete branch. Exit code: " + exitCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
